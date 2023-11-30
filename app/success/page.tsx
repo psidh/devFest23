@@ -56,7 +56,8 @@ const Page: FC<PageProps> = () => {
         />
 
         <div
-          className="absolute bottom-[22%] h-[10%] flex flex-col justify-end pb-20 pl-20 items-start   transform text-center"
+          className="absolute bottom-[22%] h-[10%] md:bottom-[22%]  md:h-[10%] flex flex-col 
+          justify-end pb-20 pl-20 md:pb-12 md:left-[35%] items-start   transform text-center"
           style={{
             width: width * 0.8,
           }}
