@@ -15,7 +15,8 @@ export default function Page() {
     if (imageRef.current) {
       setWidth(imageRef.current.clientHeight * 0.6363636364);
       setHeight(imageRef.current.clientHeight);
-      setX(imageRef.current.offsetLeft / 2);
+      setX((imageRef.current.offsetWidth - width) / 2);
+      setY((imageRef.current.offsetHeight - height) / 2);
       console.log(
         `Image width: ${width}, height: ${height}, Left: ${imageRef.current.offsetLeft}`
       );
@@ -50,10 +51,13 @@ export default function Page() {
         />
 
         <div
-          className={`absolute top-0 left- w-20 bg-white h-20 right-0 bottom-0`}
+          className="absolute bottom-[22%] h-[26%] flex flex-col justify-end pb-12 pl-12 items-start   transform text-center"
+          style={{
+            width: width * 0.8,
+          }}
         >
           <p className="text-3xl font-extrabold text-gray-900 ">{firstname}</p>
-          <p className="text-3xl font-bold text-gray-900 ">{lastname}</p>
+          <p className="text-3xl font-bold text-gray-900 mb-4">{lastname}</p>
           <p className="text-md text-gray-600">{role}</p>
         </div>
       </div>
