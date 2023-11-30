@@ -51,7 +51,7 @@ export default function Page() {
         />
 
         <div
-          className="absolute bottom-[22%] h-[26%] flex flex-col justify-end pb-12 pl-12 items-start   transform text-center"
+          className="absolute bottom-[22%] h-[10%] flex flex-col justify-end pb-12 pl-12 items-start   transform text-center"
           style={{
             width: width * 0.8,
           }}
@@ -59,6 +59,14 @@ export default function Page() {
           <p className="text-3xl font-extrabold text-gray-900 ">{firstname}</p>
           <p className="text-3xl font-bold text-gray-900 mb-4">{lastname}</p>
           <p className="text-md text-gray-600">{role}</p>
+        </div>
+        <div
+          className="absolute bottom-0 w-0 h-0 pr-[50px] pb-[130px] md:pr-2 md:pb-2 flex flex-row justify-end items-end transform text-center"
+          style={{
+            width: width ,
+          }}
+        >
+         <img src="/gitam.jpg" alt="GITAM logo" className='h-20 w-20 md:w-24 md:h-24 rounded-full '/>
         </div>
       </div>
     </div>
