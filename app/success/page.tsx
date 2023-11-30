@@ -1,33 +1,37 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, FC } from 'react';
 import localFont from 'next/font/local';
+
+interface PageProps {}
+
 const myFont = localFont({ src: '../GoogleSans-Regular-v1.27.ttf' });
 
-export default function Page() {
-  const [width, setWidth] = useState(-1);
-  const [height, setHeight] = useState(-1);
-  const [x, setX] = useState(-1);
-  const [y, setY] = useState(-1);
+const Page: FC<PageProps> = () => {
+  const [width, setWidth] = useState<number>(-1);
+  const [height, setHeight] = useState<number>(-1);
+  const [x, setX] = useState<number>(-1);
+  const [y, setY] = useState<number>(-1);
 
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     if (imageRef.current) {
-      setWidth(imageRef.current.clientHeight * 0.6363636364);
+      const newWidth = imageRef.current.clientHeight * 0.6363636364;
+      setWidth(newWidth);
       setHeight(imageRef.current.clientHeight);
-      setX((imageRef.current.offsetWidth - width) / 2);
-      setY((imageRef.current.offsetHeight - height) / 2);
+      setX((imageRef.current.offsetWidth - newWidth) / 2);
+      setY((imageRef.current.offsetHeight - imageRef.current.clientHeight) / 2);
       console.log(
-        `Image width: ${width}, height: ${height}, Left: ${imageRef.current.offsetLeft}`
+        `Image width: ${newWidth}, height: ${imageRef.current.clientHeight}, Left: ${imageRef.current.offsetLeft}`
       );
     }
   }, []);
 
-  let firstname = 'Sree Teja';
-  let lastname = 'Dusi';
+  let firstname: string = 'Sree Teja';
+  let lastname: string = 'Dusi';
 
   if (firstname.length >= 12) {
-    const namesThird = firstname.split(' ');
+    const namesThird: string[] = firstname.split(' ');
     if (namesThird.length >= 3) {
       firstname = namesThird[0] + ' ' + namesThird[1];
       lastname = namesThird[2];
@@ -37,7 +41,8 @@ export default function Page() {
     }
   }
 
-  const role = 'GITAM, Visakhapatnam';
+  const role: string = 'GITAM, Visakhapatnam';
+
   return (
     <div className={myFont.className}>
       <div className="relative flex justify-center items-center h-screen flex-col text-white">
@@ -46,7 +51,7 @@ export default function Page() {
           src="/id.svg"
           alt="ID card"
           style={{
-            height: `100vh`,
+            height: '100vh',
           }}
         />
 
@@ -60,17 +65,9 @@ export default function Page() {
           <p className="text-3xl font-bold text-gray-900 mb-4">{lastname}</p>
           <p className="text-md text-gray-600">{role}</p>
         </div>
-        <div
-          className="absolute bottom-0 w-0 h-0 pr-[50px] pb-[130px] md:pr-2 md:pb-2 flex flex-row justify-end items-end transform text-center"
-          style={{
-            width: width ,
-          }}
-        >
-         <img src="/gitam.jpg" alt="GITAM logo" className='h-20 w-20 md:w-24 md:h-24 rounded-full '/>
-        </div>
       </div>
     </div>
   );
-}
+};
 
-// w-[${width}] h-[${height}]
+export default Page;
