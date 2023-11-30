@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation';
 import { db } from './firebase.js';
 import { useRouter } from 'next/navigation';
 
-
 export default function Home() {
   const [extractedEmail, setExtractedEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,6 +31,10 @@ export default function Home() {
     }
   };
 
+  const bg = ['red-500', 'blue-500', 'green-500', 'yellow-500'];
+  const textColor = ['red-600', 'blue-600', 'green-600', 'yellow-600'];
+  const color = Math.floor(Math.random() * 4);
+
   return (
     <section>
       <div className="flex justify-center items-center">
@@ -43,8 +46,8 @@ export default function Home() {
       </div>
       {!loading ? (
         <div
-          className="bg-yellow-500 
-      text-white font-sans flex flex-col justify-center items-center min-h-fit"
+          className={`bg-yellow-500
+      text-white font-sans flex flex-col justify-center items-center min-h-fit`}
         >
           <div className="container mx-auto p-4 flex items-center justify-center flex-col">
             <p className="text-3xl font-bold my-16 text-center font-mono">
@@ -66,7 +69,7 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center text-white">
-          <h1 className='text-3xl'>Loading...</h1> 
+          <h1 className="text-3xl">Loading...</h1>
         </div>
       )}
     </section>
