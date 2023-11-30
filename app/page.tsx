@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { db } from './../firebase.js';
+import { db } from './firebase.js';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
