@@ -1,6 +1,9 @@
 'use client';
-import React, { useState, useRef, useEffect, FC } from 'react';
+import React, { useState, useRef, useEffect, FC, ChangeEvent } from 'react';
 import localFont from 'next/font/local';
+import QrCode from '@/components/Qr';
+import { useSearchParams } from 'next/navigation';
+import data from '../../data/data';
 
 interface PageProps {}
 
@@ -27,25 +30,47 @@ const Page: FC<PageProps> = () => {
     }
   }, []);
 
-  let firstname: string = 'Sree Teja';
-  let lastname: string = 'Dusi';
+  const search = useSearchParams();
 
-  if (firstname.length >= 12) {
-    const namesThird: string[] = firstname.split(' ');
+  const extractedEmail = search.get('email');
+
+  const entry = data.filter((e) => e.email === extractedEmail)[0];
+
+
+  let firstName: string = entry.firstName;
+  let lastName: string = entry.lastName;
+  const role: string = entry.role;
+  const email: string = entry.email;
+
+  if (firstName.length >= 12) {
+    const namesThird: string[] = firstName.split(' ');
     if (namesThird.length >= 3) {
-      firstname = namesThird[0] + ' ' + namesThird[1];
-      lastname = namesThird[2];
+      firstName = namesThird[0] + ' ' + namesThird[1];
+      lastName = namesThird[2];
     } else {
-      firstname = namesThird[0];
-      lastname = namesThird[1];
+      firstName = namesThird[0];
+      lastName = namesThird[1];
     }
   }
 
-  const role: string = 'GITAM, Visakhapatnam';
+  // async function addEntries (e1 : Object) {
+  //   try {
+  //     const docRef = db.collection('attendees').doc();
+  //     await docRef.set(e1);
+
+  //     alert.('Entry added successfully!');
+  //   } catch (error) {
+  //     console.error('Error adding entry:', error);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   addEntries(entry);
+  // }, []); // Run this effect only once on component mount
 
   return (
     <div className={myFont.className}>
-      <div className="relative flex justify-center items-center h-screen flex-col text-white">
+      <div className="relative flex justify-center items-center flex-col text-white">
         <img
           ref={imageRef}
           src="/id.svg"
@@ -57,14 +82,24 @@ const Page: FC<PageProps> = () => {
 
         <div
           className="absolute bottom-[22%] h-[10%] md:bottom-[22%]  md:h-[10%] flex flex-col 
-          justify-end pb-20 pl-20 md:pb-12 md:left-[35%] items-start   transform text-center"
+          justify-end pb-[23%] pl-[20%] md:pb-[3.7%] md:left-[20%] items-start  transform text-center"
           style={{
             width: width * 0.8,
           }}
         >
-          <p className="text-3xl font-extrabold text-gray-900 ">{firstname}</p>
-          <p className="text-3xl font-bold text-gray-900 mb-4">{lastname}</p>
+          <p className="text-3xl font-extrabold text-gray-900 ">{firstName}</p>
+          <p className="text-3xl font-bold text-gray-900 mb-4">{lastName}</p>
           <p className="text-md text-gray-600">{role}</p>
+        </div>
+
+        <div
+          className="absolute bottom-[22%] h-[10%] md:bottom-[22%]   flex flex-col 
+          justify-end  pb-[23%] pl-[60%] md:pb-[3.5%] md:pl-[18%] items-start   transform text-center"
+          style={{
+            width: width * 0.8,
+          }}
+        >
+          <QrCode email={email} size={110} />
         </div>
       </div>
     </div>

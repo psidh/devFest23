@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { db } from './firebase.js';
 import { useRouter } from 'next/navigation';
 
+
 export default function Home() {
   const [extractedEmail, setExtractedEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,7 +23,7 @@ export default function Home() {
         await doc.update({ flag: true });
 
         // Since the update method doesn't return a value, you can assume success if it doesn't throw an error
-        router.push('/success');
+        router.push(`/success?email=${extractedEmail}`);
       } else {
         alert('Email not found');
       }
