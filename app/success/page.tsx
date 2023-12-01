@@ -1,13 +1,10 @@
 'use client';
 import React, { useState, useRef, useEffect, FC, ChangeEvent } from 'react';
-import localFont from 'next/font/local';
 import QrCode from '@/components/Qr';
 import { useSearchParams } from 'next/navigation';
 import data from '../../data/data';
 
 interface PageProps {}
-
-const myFont = localFont({ src: '../GoogleSans-Regular-v1.27.ttf' });
 
 const Page: FC<PageProps> = () => {
   const [width, setWidth] = useState<number>(-1);
@@ -32,10 +29,12 @@ const Page: FC<PageProps> = () => {
 
   const search = useSearchParams();
 
-  const extractedEmail = search.get('email');
+  const extractedEmail = search.get('name');
 
-  const entry = data.filter((e) => e.email === extractedEmail)[0];
-
+  const entry = data.filter(
+    (e) => e.firstName + e.lastName === extractedEmail
+  )[0];
+  console.log(entry);
 
   let firstName: string = entry.firstName;
   let lastName: string = entry.lastName;
@@ -69,7 +68,7 @@ const Page: FC<PageProps> = () => {
   // }, []); // Run this effect only once on component mount
 
   return (
-    <div className={myFont.className}>
+    <div>
       <div className="relative flex justify-center items-center flex-col text-white">
         <img
           ref={imageRef}
@@ -87,9 +86,13 @@ const Page: FC<PageProps> = () => {
             width: width * 0.8,
           }}
         >
-          <p className="text-3xl font-extrabold text-gray-900 ">{firstName}</p>
-          <p className="text-3xl font-bold text-gray-900 mb-4">{lastName}</p>
-          <p className="text-md text-gray-600">{role}</p>
+          <p className="text-3xl font-extrabold text-gray-900 text-left">
+            {firstName}
+          </p>
+          <p className="text-3xl font-bold text-gray-900 mb-4 text-left">
+            {lastName}
+          </p>
+          <p className="text-md text-gray-600 ">{role}</p>
         </div>
 
         <div

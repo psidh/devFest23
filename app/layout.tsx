@@ -1,22 +1,22 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from 'next';
+import './globals.css';
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ['latin'] })
+const myFont = localFont({ src: './GoogleSans-Regular-v1.27.ttf' });
 
 export const metadata: Metadata = {
   title: 'DevFest2023 RSVP',
   description: 'Welcome to DevFest 2023!, Please RSVP using the form below.',
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={`bg-black ${inter.className}`}>{children}</body>
+      <body className={`bg-black ${myFont.className}`}>{children}</body>
     </html>
-  )
+  );
 }

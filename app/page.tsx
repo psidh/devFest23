@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { db } from './firebase.js';
 import { useRouter } from 'next/navigation';
+import data from '@/data/data';
 
 export default function Home() {
   const [extractedEmail, setExtractedEmail] = useState<string | null>(null);
@@ -12,7 +13,7 @@ export default function Home() {
 
   const extractEmail = async () => {
     try {
-      const extractedEmail = search.get('email');
+      const extractedEmail = search.get('name');
       setExtractedEmail(extractedEmail);
 
       if (extractedEmail) {
@@ -22,18 +23,34 @@ export default function Home() {
         await doc.update({ flag: true });
 
         // Since the update method doesn't return a value, you can assume success if it doesn't throw an error
-        router.push(`/success?email=${extractedEmail}`);
+        router.push(`/success?name=${extractedEmail}`);
       } else {
-        alert('Email not found');
+        alert(`Your name is not in the list.`);
       }
     } catch (e) {
       alert(`Something went wrong, please try again. ${e}`);
     }
   };
 
-  const bg = ['red-500', 'blue-500', 'green-500', 'yellow-500'];
-  const textColor = ['red-600', 'blue-600', 'green-600', 'yellow-600'];
-  const color = Math.floor(Math.random() * 4);
+  // useEffect(() => {
+  //   for (let i = 0; i < data.length; i++) {
+  //     const element = data[i];
+  //     if (
+  //       element === null ||
+  //       element.firstName === '' ||
+  //       element.lastName === ''
+  //     ) {
+  //       console.log('No details : ' + element.email);
+  //     } else {
+  //       db.collection('attendees')
+  //         .doc(element.firstName + element.lastName)
+  //         .set(element)
+  //         .then(() => {
+  //           console.log(`added: ${element.email}`);
+  //         });
+  //     }
+  //   }
+  // });P
 
   return (
     <section>
@@ -50,11 +67,12 @@ export default function Home() {
       text-white font-sans flex flex-col justify-center items-center min-h-fit`}
         >
           <div className="container mx-auto p-4 flex items-center justify-center flex-col">
-            <p className="text-3xl font-bold my-16 text-center font-mono">
-              Welcome to DevFest 2023!
+            <p className="text-3xl font-bold my-16 text-center f">
+              Welcome to DevFest Vizag 2023!
             </p>
-            <p className="text-2xl font-semibold my-6 text-center font-mono">
-              Please RSVP using the form below.
+            <p className="text-2xl font-semibold my-6 text-center">
+              Please confirm your presence at GITAM University on 2nd December
+              2023 at 08:30 AM
             </p>
           </div>
 
